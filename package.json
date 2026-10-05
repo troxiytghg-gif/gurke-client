@@ -1,0 +1,76 @@
+{
+  "name": "gurke-client",
+  "productName": "Gurke Client",
+  "version": "1.1.0",
+  "description": "Gurke Client - Minecraft launcher for Windows and SteamOS/Linux (.exe + .deb)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win nsis",
+    "build:linux": "electron-builder --linux deb",
+    "build:steamdeck": "electron-builder --linux AppImage",
+    "build:all": "electron-builder --win nsis --linux deb",
+    "build:versioned": "node scripts/build-versioned.js",
+    "build:win:portable": "electron-builder --win portable",
+    "build:linux:deb": "electron-builder --linux deb",
+    "build:steamdeck:deb": "electron-builder --linux deb"
+  },
+  "dependencies": {
+    "minecraft-launcher-core": "^3.18.2",
+    "msmc": "^5.0.5"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "de.gurke.client",
+    "productName": "Gurke Client",
+    "artifactName": "Gurke-Client-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/**/*",
+      "!node_modules/.cache/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icons/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Game",
+      "executableName": "gurke-client",
+      "icon": "build/icons",
+      "syncDesktopName": true
+    },
+    "mac": {
+      "target": "dmg"
+    }
+  },
+  "author": "Gurke Client",
+  "desktopName": "de.gurke.client"
+}
